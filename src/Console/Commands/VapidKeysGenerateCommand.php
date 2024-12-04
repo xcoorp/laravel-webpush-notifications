@@ -1,11 +1,13 @@
 <?php
 
-namespace NotificationChannels\WebPush;
+namespace NotificationChannels\WebPush\Console\Commands;
 
+use ErrorException;
 use Illuminate\Console\Command;
 use Illuminate\Console\ConfirmableTrait;
 use Illuminate\Support\Str;
 use Minishlink\WebPush\VAPID;
+use Symfony\Component\Console\Command\Command as CommandAlias;
 
 class VapidKeysGenerateCommand extends Command
 {
@@ -14,7 +16,7 @@ class VapidKeysGenerateCommand extends Command
     /**
      * @var string
      */
-    protected $signature = 'webpush:vapid
+    protected $signature = 'webpush-notifications:vapid
                         {--show : Display the keys instead of modifying files}
                         {--force : Force the operation to run when in production}';
 
@@ -26,9 +28,9 @@ class VapidKeysGenerateCommand extends Command
     /**
      * Execute the console command.
      *
-     * @return mixed
+     * @throws ErrorException
      */
-    public function handle()
+    public function handle(): int
     {
         $keys = VAPID::createVapidKeys();
 
@@ -36,25 +38,24 @@ class VapidKeysGenerateCommand extends Command
             $this->line('<comment>VAPID_PUBLIC_KEY='.$keys['publicKey'].'</comment>');
             $this->line('<comment>VAPID_PRIVATE_KEY='.$keys['privateKey'].'</comment>');
 
-            return;
+            return CommandAlias::SUCCESS;
         }
 
         if (! $this->setKeysInEnvironmentFile($keys)) {
-            return;
+            return CommandAlias::SUCCESS;
         }
 
         $this->info('VAPID keys set successfully.');
+
+        return CommandAlias::SUCCESS;
     }
 
     /**
      * Set the keys in the environment file.
-     *
-     * @param  array  $keys
-     * @return bool
      */
-    protected function setKeysInEnvironmentFile($keys)
+    protected function setKeysInEnvironmentFile(array $keys): bool
     {
-        $currentKeys = $this->laravel['config']['webpush.vapid'];
+        $currentKeys = $this->laravel['config']['webpush-notifications.vapid'];
 
         if (strlen($currentKeys['public_key']) !== 0 && (! $this->confirmToProceed())) {
             return false;
@@ -67,11 +68,8 @@ class VapidKeysGenerateCommand extends Command
 
     /**
      * Write a new environment file with the given keys.
-     *
-     * @param  array  $keys
-     * @return void
      */
-    protected function writeNewEnvironmentFileWith($keys)
+    protected function writeNewEnvironmentFileWith(array $keys): void
     {
         $contents = file_get_contents($this->laravel->environmentFilePath());
 
@@ -100,13 +98,10 @@ class VapidKeysGenerateCommand extends Command
 
     /**
      * Get a regex pattern that will match env $keyName with any key.
-     *
-     * @param  string  $keyName
-     * @return string
      */
-    protected function keyReplacementPattern($keyName)
+    protected function keyReplacementPattern(string $keyName): string
     {
-        $key = $this->laravel['config']['webpush.vapid'];
+        $key = $this->laravel['config']['webpush-notifications.vapid'];
 
         if ($keyName === 'VAPID_PUBLIC_KEY') {
             $key = $key['public_key'];

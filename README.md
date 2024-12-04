@@ -1,152 +1,129 @@
-# Web push notifications channel for Laravel
+<p align="center">
+<a href="LICENSE"><img alt="Software License" src="https://img.shields.io/badge/license-MIT-brightgreen.svg?style=flat-square"></a>
+<a href="composer.json"><img alt="Laravel Version Requirements" src="https://img.shields.io/badge/laravel-~11.0-gray?logo=laravel&style=flat-square&labelColor=F05340&logoColor=white"></a>
+</p>
 
-[![Latest Version on Packagist](https://img.shields.io/packagist/v/laravel-notification-channels/webpush.svg?style=flat-square)](https://packagist.org/packages/laravel-notification-channels/webpush)
-![Build Status](https://github.com/laravel-notification-channels/webpush/workflows/tests/badge.svg)
-[![Quality Score](https://img.shields.io/scrutinizer/g/laravel-notification-channels/webpush.svg?style=flat-square)](https://scrutinizer-ci.com/g/laravel-notification-channels/webpush)
-[![Code Coverage](https://img.shields.io/scrutinizer/coverage/g/laravel-notification-channels/webpush/master.svg?style=flat-square)](https://scrutinizer-ci.com/g/laravel-notification-channels/webpush/?branch=master)
-[![Total Downloads](https://img.shields.io/packagist/dt/laravel-notification-channels/webpush.svg?style=flat-square)](https://packagist.org/packages/laravel-notification-channels/webpush)
+<h1>WebPush - Laravel Notification Channel</h1>
 
-This package makes it easy to send web push notifications with Laravel.
+This package makes it easy to send notifications using [Web Push API](https://developer.mozilla.org/en-US/docs/Web/API/Push_API)
+````php
+class InvoicePaidNotification extends Notification
+{
+    // Trigger a specific notification event
+    public function toWebPush($notifiable)
+    {
+        return (new WebPushMessage)
+                ->title('Approved!')
+                ->body('Your account was approved!')
+                ->action('View account', 'view_account')
+                ->options(['TTL' => 1000]);
+    }
+}
+````
+## Contents
+
+- [Installation](#installation)
+    - [Publish Configuration and Migrations](#publishing-configuration-and-migrations)
+    - [Configuration](#configuration)
+- [Usage](#usage)
+- [API Overview](#webpush-message)
+    - [WebPush Message](#webpush-message)
+- [Testing](#testing)
+- [License](#license)
+
 
 ## Installation
 
-You can install the package via composer:
+The Web Push notification channel can be installed easily via Composer:
 
-``` bash
-composer require laravel-notification-channels/webpush
-```
+````bash
+composer require xcoorp/laravel-webpush-notifications
+````
 
-First add the `NotificationChannels\WebPush\HasPushSubscriptions` trait to your `User` model:
+### Publishing Configuration and Migrations
 
-``` php
-use NotificationChannels\WebPush\HasPushSubscriptions;
+After installing the package, you can publish the configuration file and migrations by running the following command:
 
-class User extends Model
-{
-    use HasPushSubscriptions;
-}
-```
+````bash
+php artisan vendor:publish --provider="NotificationChannels\WebPush\WebPushServiceProvider"
+````
 
-Next publish the migration with:
+After publishing the migrations you should migrate your database:
 
-``` bash
-php artisan vendor:publish --provider="NotificationChannels\WebPush\WebPushServiceProvider" --tag="migrations"
-```
-
-Run the migrate command to create the necessary table:
-
-``` bash
+````bash
 php artisan migrate
-```
+````
 
-You can also publish the config file with:
+After publishing the configuration file, you should configure the `vapid` keys in your `.env` file:
 
-``` bash
-php artisan vendor:publish --provider="NotificationChannels\WebPush\WebPushServiceProvider" --tag="config"
-```
+````env
+VAPID_PUBLIC_KEY=your-public-key
+VAPID_PRIVATE_KEY=your-private-key
+VAPID_SUBJECT=your-email or url
+````
 
-Generate the VAPID keys (required for browser authentication) with:
+You can generate the vapid keys using the following command:
 
-``` bash
-php artisan webpush:vapid
-```
+````bash
+php artisan webpush-notifications:vapid
+````
 
-This command will set `VAPID_PUBLIC_KEY` and `VAPID_PRIVATE_KEY`in your `.env` file.
+### Configuration
 
-> Note: if targeting Safari or iOS after 2023, you will need to include the `VAPID_SUBJECT` variable as well or Apple will return a `BadJwtToken` error.
+The `config/webpush-notifications.php` configuration file allows you to configure the default Web Push options for your application.
 
-__These keys must be safely stored and should not change.__
+You can define custom Models to use, and the vapid keys to use for the Web Push API.
 
-If you still want support for [Google Cloud Messaging](https://console.cloud.google.com), set the `GCM_KEY` and `GCM_SENDER_ID` in your `.env` file.
+If you define a custom `UsereWebPushSubscription` model you need to make sure it extends the `UsereWebPushSubscription` model shipped with this package.
 
 ## Usage
 
-Now you can use the channel in your `via()` method inside the notification as well as send a web push notification:
+In order to send a notification via the WebPush channel, you'll need to specify the channel in the `via()` method of your notification:
 
-``` php
-use Illuminate\Notifications\Notification;
-use NotificationChannels\WebPush\WebPushMessage;
+````php
 use NotificationChannels\WebPush\WebPushChannel;
 
-class AccountApproved extends Notification
+public function via($notifiable)
 {
-    public function via($notifiable)
-    {
-        return [WebPushChannel::class];
-    }
-
-    public function toWebPush($notifiable, $notification)
-    {
-        return (new WebPushMessage)
-            ->title('Approved!')
-            ->icon('/approved-icon.png')
-            ->body('Your account was approved!')
-            ->action('View account', 'view_account')
-            ->options(['TTL' => 1000]);
-            // ->data(['id' => $notification->id])
-            // ->badge()
-            // ->dir()
-            // ->image()
-            // ->lang()
-            // ->renotify()
-            // ->requireInteraction()
-            // ->tag()
-            // ->vibrate()
-    }
+    return [
+        WebPushChannel::class
+    ]
 }
-```
+````
 
-You can find the available options [here](https://github.com/web-push-libs/web-push-php#notifications-and-default-options).
+## API Overview
 
-### Save/Update Subscriptions
+### WebPush Message
 
-To save or update a subscription use the `updatePushSubscription($endpoint, $key = null, $token = null, $contentEncoding = null)` method on your user:
+Namespace: `NotificationChannels\WebPush\WebPushMessage`
 
-``` php
-$user = \App\User::find(1);
+The `WebPushMessage` class encompasses an entire message that will be sent to the Web Push API.
 
-$user->updatePushSubscription($endpoint, $key, $token, $contentEncoding);
-```
+- `title(string $title)` Set the `title` of the message
+- `action(string $title, string $action, ?string $icon = null))` Set the `action` of the message
+- `badge(string $badge)` Set the url to the `badge` image of the message
+- `body(string $body)` Set the `body` of the message
+- `dir(string $dir)` Set the text-direction `dir` of the message
+- `icon(string $icon)` Set the url to the `icon` of the message
+- `image(string $image)` Set the url to the `image` of the message
+- `lang(string $lang)` Set the Language `lang` of the message
+- `renotify(bool $renotify)` specifies whether the user should be notified after a new notification replaces an old one
+- `requireInteraction(bool $requireInteraction)` specifies whether the notification requires interaction
+- `tag(string $value)` Set the `tag` of the message
+- `vibrate(array $vibrate)` Set the vibration pattern `vibrate` of the message
+- `data(mixed $value)` Set the `data` of the message
+- `options(array $options)` Set the `options` of the message (See [here]( https://github.com/web-push-libs/web-push-php#notifications-and-default-options) for more information)
+- `toArray()` Returns the data that will be sent to the WebPush API as an array
 
-The `$key` and `$token` are optional and are used to encrypt your notifications. Only encrypted notifications can have a payload.
+## Code of Conduct
 
-### Delete Subscriptions
+In order to ensure that the community is welcoming to all, please review and abide by
+the [Code of Conduct](CODE_OF_CONDUCT.md).
 
-To delete a subscription use the `deletePushSubscription($endpoint)` method on your user:
+## Security Vulnerabilities
 
-``` php
-$user = \App\User::find(1);
-
-$user->deletePushSubscription($endpoint);
-```
-
-## Browser Compatibility
-
-See the [Push API](https://caniuse.com/#feat=push-api) browser compatibility.
-
-## Changelog
-
-Please see [CHANGELOG](CHANGELOG.md) for more information about what has changed recently.
-
-## Testing
-
-``` bash
-$ composer test
-```
-
-## Security
-
-If you discover any security related issues, please email themsaid@gmail.com instead of using the issue tracker.
-
-## Contributing
-
-Please see [CONTRIBUTING](CONTRIBUTING.md) for details.
-
-## Credits
-
-- [Cretu Eusebiu](https://github.com/cretueusebiu)
-- [All Contributors](../../contributors)
+Please review the [security policy](SECURITY.md) on how to report security vulnerabilities.
 
 ## License
 
-The MIT License (MIT). Please see [License File](LICENSE.md) for more information.
+The MIT License (MIT). Please see [License File](LICENSE) for more information.

@@ -4,7 +4,7 @@ use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class CreatePushSubscriptionsTable extends Migration
+return new class extends Migration
 {
     /**
      * Run the migrations.
@@ -13,9 +13,10 @@ class CreatePushSubscriptionsTable extends Migration
      */
     public function up()
     {
-        Schema::connection(config('webpush.database_connection'))->create(config('webpush.table_name'), function (Blueprint $table) {
-            $table->bigIncrements('id');
-            $table->morphs('subscribable');
+       Schema::create('user_web_push_subscriptions', function (Blueprint $table) {
+            $table->id();
+            $table->string('user_id')->index();
+            $table->foreign('user_id')->references('id')->on('users');
             $table->string('endpoint', 500)->unique();
             $table->string('public_key')->nullable();
             $table->string('auth_token')->nullable();
@@ -31,6 +32,6 @@ class CreatePushSubscriptionsTable extends Migration
      */
     public function down()
     {
-        Schema::connection(config('webpush.database_connection'))->dropIfExists(config('webpush.table_name'));
+         Schema::dropIfExists('user_web_push_subscriptions');
     }
-}
+};

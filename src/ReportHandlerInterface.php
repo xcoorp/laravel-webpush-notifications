@@ -2,15 +2,13 @@
 
 namespace NotificationChannels\WebPush;
 
+use Minishlink\WebPush\MessageSentReport;
+use NotificationChannels\WebPush\Models\UserWebPushSubscription;
+
 interface ReportHandlerInterface
 {
     /**
      * Handle a message sent report.
-     *
-     * @param  \Minishlink\WebPush\MessageSentReport  $report
-     * @param  \NotificationChannels\WebPush\PushSubscription  $subscription
-     * @param  \NotificationChannels\WebPush\WebPushMessage  $message
-     * @return void
      */
-    public function handleReport($report, $subscription, $message);
+    public function handleReport(MessageSentReport $report, UserWebPushSubscription $subscription, WebPushMessage $message): void;
 }

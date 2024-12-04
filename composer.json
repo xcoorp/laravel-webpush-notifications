@@ -1,9 +1,18 @@
 {
-    "name": "laravel-notification-channels/webpush",
-    "description": "Web Push Notifications driver for Laravel.",
-    "homepage": "https://github.com/laravel-notification-channels/webpush",
+    "name": "xcoorp/laravel-webpush-notifications",
+    "description": "Web Push Notifications channel for Laravel.",
+    "keywords": [
+        "laravel",
+        "notifications",
+        "webpush"
+    ],
+    "homepage": "https://github.com/xcoorp/laravel-webpush-notifications",
     "license": "MIT",
     "authors": [
+        {
+            "name": "XCoorp GmbH",
+            "homepage": "https://xcoorp.com"
+        },
         {
             "name": "Cretu Eusebiu",
             "email": "me@cretueusebiu.com",
@@ -12,15 +21,17 @@
         }
     ],
     "require": {
-        "php": "^8.1",
-        "illuminate/notifications": "^9.0|^10.0|^11.0",
-        "illuminate/support": "^9.0|^10.0|^11.0",
-        "minishlink/web-push": "^9.0"
+        "php": "^8.3",
+        "illuminate/notifications": "^11",
+        "illuminate/support": "^11",
+        "illuminate/contracts": "^11.0",
+        "illuminate/container": "^11.0",
+        "illuminate/config": "^11.0",
+        "minishlink/web-push": "^9"
     },
     "require-dev": {
-        "mockery/mockery": "~1.0",
-        "orchestra/testbench": "^7.0|^8.0|^9.0",
-        "phpunit/phpunit": "^9.5|^10.5"
+        "pestphp/pest": "^v2",
+        "laravel/pint": "^v1"
     },
     "autoload": {
         "psr-4": {
@@ -32,19 +43,28 @@
             "NotificationChannels\\WebPush\\Test\\": "tests"
         }
     },
+    "config": {
+        "sort-packages": true,
+        "allow-plugins": {
+            "pestphp/pest-plugin": true
+        }
+    },
+    "scripts": {
+        "lint": "pint -v",
+        "test:lint": "pint --test -v",
+        "test:coverage": "pest --coverage --min=100 --colors=always",
+        "test:unit": "pest --colors=always",
+        "test": [
+            "@test:lint",
+            "@test:unit",
+            "@test:coverage"
+        ]
+    },
     "extra": {
         "laravel": {
             "providers": [
                 "NotificationChannels\\WebPush\\WebPushServiceProvider"
             ]
         }
-    },
-    "config": {
-        "sort-packages": true
-    },
-    "minimum-stability": "dev",
-    "prefer-stable": true,
-    "scripts": {
-        "test": "vendor/bin/phpunit"
     }
 }
