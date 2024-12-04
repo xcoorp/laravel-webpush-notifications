@@ -2,6 +2,13 @@
 
 All Notable changes to `laravel-notification-channels/webpush` will be documented in this file
 
+## [1.0.1](https://github.com/xcoorp/laravel-webpush-notifications/compare/v1.0.0...v1.0.1) (2024-12-04)
+
+
+### Bug Fixes
+
+* **migration:** fix database migration path ([abbdb2f](https://github.com/xcoorp/laravel-webpush-notifications/commit/abbdb2fb3f8604e2b5ca2e99a4b5cfc12a072e24))
+
 ## 1.0.0 (2024-12-04)
 
 
