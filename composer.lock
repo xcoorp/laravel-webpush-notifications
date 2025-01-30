@@ -772,7 +772,7 @@
         },
         {
             "name": "illuminate/broadcasting",
-            "version": "v11.41.1",
+            "version": "v11.41.2",
             "source": {
                 "type": "git",
                 "url": "https://github.com/illuminate/broadcasting.git",
@@ -830,7 +830,7 @@
         },
         {
             "name": "illuminate/bus",
-            "version": "v11.41.1",
+            "version": "v11.41.2",
             "source": {
                 "type": "git",
                 "url": "https://github.com/illuminate/bus.git",
@@ -883,7 +883,7 @@
         },
         {
             "name": "illuminate/collections",
-            "version": "v11.41.1",
+            "version": "v11.41.2",
             "source": {
                 "type": "git",
                 "url": "https://github.com/illuminate/collections.git",
@@ -939,7 +939,7 @@
         },
         {
             "name": "illuminate/conditionable",
-            "version": "v11.41.1",
+            "version": "v11.41.2",
             "source": {
                 "type": "git",
                 "url": "https://github.com/illuminate/conditionable.git",
@@ -1033,7 +1033,7 @@
         },
         {
             "name": "illuminate/console",
-            "version": "v11.41.1",
+            "version": "v11.41.2",
             "source": {
                 "type": "git",
                 "url": "https://github.com/illuminate/console.git",
@@ -1198,16 +1198,16 @@
         },
         {
             "name": "illuminate/database",
-            "version": "v11.41.1",
+            "version": "v11.41.2",
             "source": {
                 "type": "git",
                 "url": "https://github.com/illuminate/database.git",
-                "reference": "e299450a1c68d3e281f9ee2d74b8e79525374ac4"
+                "reference": "ca7441b61fa56e45286d98f130cb1c71eac3ac7f"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/illuminate/database/zipball/e299450a1c68d3e281f9ee2d74b8e79525374ac4",
-                "reference": "e299450a1c68d3e281f9ee2d74b8e79525374ac4",
+                "url": "https://api.github.com/repos/illuminate/database/zipball/ca7441b61fa56e45286d98f130cb1c71eac3ac7f",
+                "reference": "ca7441b61fa56e45286d98f130cb1c71eac3ac7f",
                 "shasum": ""
             },
             "require": {
@@ -1263,11 +1263,11 @@
                 "issues": "https://github.com/laravel/framework/issues",
                 "source": "https://github.com/laravel/framework"
             },
-            "time": "2025-01-30T09:12:57+00:00"
+            "time": "2025-01-30T09:49:46+00:00"
         },
         {
             "name": "illuminate/events",
-            "version": "v11.41.1",
+            "version": "v11.41.2",
             "source": {
                 "type": "git",
                 "url": "https://github.com/illuminate/events.git",
@@ -1322,7 +1322,7 @@
         },
         {
             "name": "illuminate/filesystem",
-            "version": "v11.41.1",
+            "version": "v11.41.2",
             "source": {
                 "type": "git",
                 "url": "https://github.com/illuminate/filesystem.git",
@@ -1389,7 +1389,7 @@
         },
         {
             "name": "illuminate/macroable",
-            "version": "v11.41.1",
+            "version": "v11.41.2",
             "source": {
                 "type": "git",
                 "url": "https://github.com/illuminate/macroable.git",
@@ -1435,7 +1435,7 @@
         },
         {
             "name": "illuminate/mail",
-            "version": "v11.41.1",
+            "version": "v11.41.2",
             "source": {
                 "type": "git",
                 "url": "https://github.com/illuminate/mail.git",
@@ -1497,7 +1497,7 @@
         },
         {
             "name": "illuminate/notifications",
-            "version": "v11.41.1",
+            "version": "v11.41.2",
             "source": {
                 "type": "git",
                 "url": "https://github.com/illuminate/notifications.git",
@@ -1555,7 +1555,7 @@
         },
         {
             "name": "illuminate/pipeline",
-            "version": "v11.41.1",
+            "version": "v11.41.2",
             "source": {
                 "type": "git",
                 "url": "https://github.com/illuminate/pipeline.git",
@@ -1603,7 +1603,7 @@
         },
         {
             "name": "illuminate/queue",
-            "version": "v11.41.1",
+            "version": "v11.41.2",
             "source": {
                 "type": "git",
                 "url": "https://github.com/illuminate/queue.git",
@@ -1747,7 +1747,7 @@
         },
         {
             "name": "illuminate/view",
-            "version": "v11.41.1",
+            "version": "v11.41.2",
             "source": {
                 "type": "git",
                 "url": "https://github.com/illuminate/view.git",
