@@ -22,15 +22,15 @@
     ],
     "require": {
         "php": "^8.3",
-        "illuminate/notifications": "^11",
-        "illuminate/support": "^11",
-        "illuminate/contracts": "^11.0",
-        "illuminate/container": "^11.0",
-        "illuminate/config": "^11.0",
+        "illuminate/notifications": "^11|^12",
+        "illuminate/support": "^11|^12",
+        "illuminate/contracts": "^11|^12",
+        "illuminate/container": "^11|^12",
+        "illuminate/config": "^11|^12",
         "minishlink/web-push": "^9"
     },
     "require-dev": {
-        "pestphp/pest": "^v2",
+        "pestphp/pest": "^v3",
         "laravel/pint": "^v1"
     },
     "autoload": {
