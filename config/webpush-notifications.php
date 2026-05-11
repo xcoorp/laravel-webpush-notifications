@@ -1,5 +1,8 @@
 <?php
 
+use App\Models\User;
+use NotificationChannels\WebPush\Models\UserWebPushSubscription;
+
 return [
     /*
     |--------------------------------------------------------------------------
@@ -22,6 +25,6 @@ return [
     |
     | This is the User model used by WebPushNotifications for the subscriptions.
     */
-    'user_model' => App\Models\User::class,
-    'user_web_push_model' => NotificationChannels\WebPush\Models\UserWebPushSubscription::class,
+    'user_model' => User::class,
+    'user_web_push_model' => UserWebPushSubscription::class,
 ];

@@ -58,7 +58,7 @@
     "scripts": {
         "lint": "pint -v",
         "test:lint": "pint --test -v",
-        "test:coverage": "pest --coverage --min=100 --colors=always",
+        "test:coverage": "pest --min=100 --colors=always",
         "test:unit": "pest --colors=always",
         "test": [
             "@test:lint",
