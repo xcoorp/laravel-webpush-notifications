@@ -6,10 +6,12 @@ use ErrorException;
 use Generator;
 use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Notifications\Notification;
+use JsonException;
 use Minishlink\WebPush\MessageSentReport;
 use Minishlink\WebPush\Subscription;
 use Minishlink\WebPush\WebPush;
 use NotificationChannels\WebPush\Models\UserWebPushSubscription;
+use Random\RandomException;
 
 class WebPushChannel
 {
@@ -19,6 +21,7 @@ class WebPushChannel
      * Send the given notification.
      *
      * @throws ErrorException
+     * @throws JsonException|RandomException
      */
     public function send(mixed $notifiable, Notification $notification): void
     {
@@ -31,7 +34,7 @@ class WebPushChannel
 
         /** @var WebPushMessage $message */
         $message = $notification->toWebPush($notifiable, $notification);
-        $payload = json_encode($message->toArray());
+        $payload = json_encode($message->toArray(), JSON_THROW_ON_ERROR);
         $options = $message->getOptions();
 
         /** @var UserWebPushSubscription $subscription */

@@ -57,7 +57,7 @@ class VapidKeysGenerateCommand extends Command
     {
         $currentKeys = $this->laravel['config']['webpush-notifications.vapid'];
 
-        if (strlen($currentKeys['public_key']) !== 0 && (! $this->confirmToProceed())) {
+        if ($currentKeys['public_key'] !== '' && (! $this->confirmToProceed())) {
             return false;
         }
 
@@ -111,6 +111,6 @@ class VapidKeysGenerateCommand extends Command
 
         $escaped = preg_quote('='.$key, '/');
 
-        return "/^{$keyName}{$escaped}/m";
+        return "/^$keyName$escaped/m";
     }
 }
