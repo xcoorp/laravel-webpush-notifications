@@ -2,6 +2,23 @@
 
 All Notable changes to `laravel-notification-channels/webpush` will be documented in this file
 
+## [1.0.3](https://github.com/xcoorp/laravel-webpush-notifications/compare/v1.0.2...v1.0.3) (2026-05-11)
+
+
+### Miscellaneous Chores
+
+* **deps:** update action dependencies ([e548f7d](https://github.com/xcoorp/laravel-webpush-notifications/commit/e548f7dffcdce34868d2368fd7c5aab0f02ed0c7))
+* **deps:** update dependencies, support laravel 13 ([004593c](https://github.com/xcoorp/laravel-webpush-notifications/commit/004593cbecda8f0cf4660362155e1831f98ee9e7))
+* **package:** lock file maintenance ([9b4a0f6](https://github.com/xcoorp/laravel-webpush-notifications/commit/9b4a0f622b35e9bb74c47aa633cf54c7281c4e01))
+* **package:** lock file maintenance ([492d940](https://github.com/xcoorp/laravel-webpush-notifications/commit/492d9405635b930092ea7467daf38632b0059595))
+* **package:** lock file maintenance ([d3653c8](https://github.com/xcoorp/laravel-webpush-notifications/commit/d3653c899068d01d99a7eca22cdc52caca213300))
+* **package:** lock file maintenance ([a196916](https://github.com/xcoorp/laravel-webpush-notifications/commit/a1969166d6cb60a3e5ffa2b8233a6452ed388b5e))
+* **package:** lock file maintenance ([bf7d797](https://github.com/xcoorp/laravel-webpush-notifications/commit/bf7d797b9334f22ba2c3336b53bbfbc7919be140))
+* **package:** lock file maintenance ([e113ff8](https://github.com/xcoorp/laravel-webpush-notifications/commit/e113ff81b46ad5876ca24cc25def8eaf1101a5d2))
+* **package:** lock file maintenance ([4dea745](https://github.com/xcoorp/laravel-webpush-notifications/commit/4dea745fb049a1fedb41f43962dd8a706f5ae40f))
+* **package:** lock file maintenance ([d883e72](https://github.com/xcoorp/laravel-webpush-notifications/commit/d883e72ef674b789e9ba971bc074a5e7b826efef))
+* **package:** lock file maintenance ([0a78b80](https://github.com/xcoorp/laravel-webpush-notifications/commit/0a78b806dda872f898302383a89981c90ead4062))
+
 ## [1.0.2](https://github.com/xcoorp/laravel-webpush-notifications/compare/v1.0.1...v1.0.2) (2025-04-02)
 
 
